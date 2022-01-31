@@ -1,34 +1,42 @@
 import React, { useState } from "react";
+import { AddLensSurface } from "./calculation/AddLensSurface";
+import { CreateParamList } from "./calculation/CreateParamList";
 
 export const App = () => {
-  const [inputLensCount, setInputLensCount] = useState("");
-  const [totalLensCount, setTotalLensCount] = useState([0]);
+  const [nLensLeft, setNLensLeft] = useState("");
+  const [nLensRight, setNLensRight] = useState("");
+  const [aLensParams, setALensParams] = useState([1,1]);
 
-  const onchangeInputLensCount = (event) => setInputLensCount(event.target.value);
+  const onchangeInputNLensLeft = (event) => setNLensLeft(event.target.value);
+  const onchangeInputNLensRight = (event) => setNLensRight(event.target.value);
 
-  // レンズ枚数決定ボタンの機能
-  const onClickDecideLensCount = () => {
-    if (inputLensCount === "") return;
-    const newInputLensCount = Number(inputLensCount);
-    if (!isNaN(newInputLensCount)) {
-      setTotalLensCount(newInputLensCount);
-      setInputLensCount("");
-    } else {
-      alert("数値を入力してください");
-    }
+  // パラメーター追加ボタン
+  const onClickAddParams = () => {
+    if (nLensLeft === "") return;
+    if (nLensRight === "") return;
+    if (isNaN === Number(nLensLeft)) {
+      alert("数値を入力してください（左側屈折率）");
+      console.log(Number(nLensLeft));
+    };
+
+    const newALensParams = [nLensLeft, nLensRight];
+    setALensParams(newALensParams);
+    setNLensLeft("");
+    setNLensRight("");
   };
 
   return (
     <>
-      <p>Let's Lens Simulation!!!</p>
-      <input
-        onChange={onchangeInputLensCount}
-        placeholder="レンズ枚数を入力"
-        value={inputLensCount}
+      <AddLensSurface
+        nLensLeft={nLensLeft}
+        nLensRight={nLensRight}
+        onchangeInputNLensLeft={onchangeInputNLensLeft}
+        onchangeInputNLensRight={onchangeInputNLensRight}
+        onClickAddParams={onClickAddParams}
       />
-      <button onClick={onClickDecideLensCount}>決定</button>
-      <p>レンズ枚数 = {totalLensCount}</p>
-      <p>屈折境界面数 = {totalLensCount*2}</p>
+      <CreateParamList 
+        aLensParams={aLensParams}
+      />
     </>
   );
 };
