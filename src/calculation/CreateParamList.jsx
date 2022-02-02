@@ -1,4 +1,3 @@
-import { forceCenter } from "d3";
 import React from "react";
 
 export const CreateParamList = (props) => {
