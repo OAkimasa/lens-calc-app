@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./styles.css";
 import { AddLensSurface } from "./calculation/AddLensSurface";
 import { CreateParamList } from "./calculation/CreateParamList";
+import { DefaultLayout } from "./components/templetes/DefaultLayout";
 
 export const App = () => {
   // 境界 1つについてのパラメーターリスト
@@ -41,19 +42,21 @@ export const App = () => {
   // パラメーターの入力
   // 入力されたパラメーターの表示
   return (
-    <>
-      <p className="text-gray-800 text-9xl">Let's Lens Simulation!!!</p>
-      <div className="text-gray-800 text-5xl">tailwind test success!!!!!</div>
-      <AddLensSurface
-        nLensLeft={nLensLeft}
-        nLensRight={nLensRight}
-        onchangeInputNLensLeft={onchangeInputNLensLeft}
-        onchangeInputNLensRight={onchangeInputNLensRight}
-        onClickAddParams={onClickAddParams}
-      />
-      <CreateParamList 
-        aLensParams={aLensParams}
-      />
-    </>
+    <DefaultLayout>
+      <main class="mx-2 mb-auto">
+        <p class="text-gray-800 text-9xl">Let's Lens Simulation!!!</p>
+        <div class="text-gray-800 text-5xl">tailwind test success!!!!!</div>
+        <AddLensSurface
+          nLensLeft={nLensLeft}
+          nLensRight={nLensRight}
+          onchangeInputNLensLeft={onchangeInputNLensLeft}
+          onchangeInputNLensRight={onchangeInputNLensRight}
+          onClickAddParams={onClickAddParams}
+        />
+        <CreateParamList 
+          aLensParams={aLensParams}
+        />
+      </main>
+    </DefaultLayout>
   );
 };
