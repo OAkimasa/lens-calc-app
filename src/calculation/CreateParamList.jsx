@@ -1,15 +1,16 @@
 import React from "react";
+import { PrimaryLabel } from "../components/atoms/label/PrimaryLabel";
 
 export const CreateParamList = (props) => {
     const { aLensParams } = props;
     return (
-        <div className="param-list-area">
+        <div>
             <a>
-                <p className="title">＜ Surface 1 Params ＞</p>
-                <div className="param-list-style">
+                <PrimaryLabel>Surface 1 Params</PrimaryLabel>
+                <div>
                     <ul>
-                        <li>left n = {aLensParams[0]}</li>
-                        <li>right n = {aLensParams[1]}</li>
+                        <PrimaryLabel>left n = {aLensParams[0]}</PrimaryLabel>
+                        <PrimaryLabel>right n = {aLensParams[1]}</PrimaryLabel>
                     </ul>
                 </div>
             </a>

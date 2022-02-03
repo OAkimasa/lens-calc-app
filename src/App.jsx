@@ -42,8 +42,8 @@ export const App = () => {
   // 入力されたパラメーターの表示
   return (
     <>
-      <p className="title">Let's Lens Simulation!!!</p>
-      <div className="text-red-400">tailwind test!!!!!</div>
+      <p className="text-gray-800 text-9xl">Let's Lens Simulation!!!</p>
+      <div className="text-gray-800 text-5xl">tailwind test success!!!!!</div>
       <AddLensSurface
         nLensLeft={nLensLeft}
         nLensRight={nLensRight}
