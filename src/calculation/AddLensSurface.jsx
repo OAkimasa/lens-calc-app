@@ -6,7 +6,8 @@ export const AddLensSurface = (props) => {
     const { nLensLeft, nLensRight, onchangeInputNLensLeft, onchangeInputNLensRight, onClickAddParams } = props;
     return (
         <div class="mx-2">
-            <a>
+            <br />
+            <div>
                 <InputWithLabel
                     onChange={onchangeInputNLensLeft}
                     placeholder="左側の屈折率を入力"
@@ -24,7 +25,7 @@ export const AddLensSurface = (props) => {
                 <PrimaryButton onClick={onClickAddParams}>
                     Add Surface
                 </PrimaryButton>
-            </a>
+            </div>
         </div>
     );
 };
