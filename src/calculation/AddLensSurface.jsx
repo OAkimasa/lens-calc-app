@@ -8,18 +8,18 @@ export const AddLensSurface = (props) => {
         <div class="mx-2">
             <a>
                 <InputWithLabel
-                onChange={onchangeInputNLensLeft}
-                placeholder="左側の屈折率を入力"
-                value={nLensLeft}
+                    onChange={onchangeInputNLensLeft}
+                    placeholder="左側の屈折率を入力"
+                    value={nLensLeft}
                 >
-                    left n
+                    - Left n -
                 </InputWithLabel>
                 <InputWithLabel
                     onChange={onchangeInputNLensRight}
                     placeholder="右側の屈折率を入力"
                     value={nLensRight}
                 >
-                    right n
+                    - Right n -
                 </InputWithLabel>
                 <PrimaryButton onClick={onClickAddParams}>
                     Add Surface
