@@ -1,6 +1,6 @@
 export const Input = (props) => {
     const { onChange, placeholder = "", value } = props;
-    return <input type="number"
+    return <input type="number" step="0.00001"
         onChange={event => onChange(event)}
         placeholder={placeholder}
         value={value}
