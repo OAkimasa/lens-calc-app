@@ -5,8 +5,10 @@ import { CreateParamList } from "./calculation/CreateParamList";
 import { DefaultLayout } from "./components/templetes/DefaultLayout";
 
 export const App = () => {
+  // 全ての境界のパラメーターリスト
+  const [allLensParams, setAllLensParams] = useState([]);
   // 境界 1つについてのパラメーターリスト
-  const [aLensParams, setALensParams] = useState([1.0000,1.0000]);
+  const [aLensParams, setALensParams] = useState([]);
   // 細かい入力パラメーター
   const [nLensLeft, setNLensLeft] = useState("");
   const [nLensRight, setNLensRight] = useState("");
@@ -17,6 +19,7 @@ export const App = () => {
 
   // パラメーター追加ボタン
   const onClickAddParams = () => {
+    if (aLensParams === []) return;
     if (nLensLeft === "") return;
     if (nLensRight === "") return;
     if (isNaN(nLensLeft)) {
@@ -35,17 +38,23 @@ export const App = () => {
     // 全て数値の場合のみパラメーターを更新
     const newALensParams = [nLensLeft, nLensRight];
     setALensParams(newALensParams);
+    //setNLensLeft(nLensRight);
     setNLensLeft("");
     setNLensRight("");
+    const newParams = [...allLensParams, newALensParams];
+    setAllLensParams(newParams);
   };
 
   // パラメーターの入力
   // 入力されたパラメーターの表示
   return (
     <DefaultLayout>
-      <main class="mx-2 mb-auto">
-        <p class="text-gray-800 text-9xl">Let's Lens Simulation!!!</p>
-        <div class="text-gray-800 text-5xl">tailwind test success!!!!!</div>
+      <main class="mx-0 mb-auto">
+        <div class="">
+          <h1 class="text-gray-800 text-9xl mx-3">Lens</h1>
+          <h1 class="text-gray-800 text-9xl mx-3">Calculation</h1>
+          <h1 class="h-40 text-gray-800 text-9xl mx-3">System</h1>
+        </div>
         <AddLensSurface
           nLensLeft={nLensLeft}
           nLensRight={nLensRight}
@@ -54,8 +63,9 @@ export const App = () => {
           onClickAddParams={onClickAddParams}
         />
         <CreateParamList 
-          aLensParams={aLensParams}
+          allLensParams={allLensParams}
         />
+        <br />
       </main>
     </DefaultLayout>
   );

@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { Input } from "../atoms/input/Input";
 import { PrimaryLabel } from "../atoms/label/PrimaryLabel";
 
-export const InputWithLabel = (props) => {
+export const InputWithLabel = memo((props) => {
     const { onChange, placeholder = "", value, children } = props;
     return (
         <div class="my-2">
@@ -13,4 +14,4 @@ export const InputWithLabel = (props) => {
             />
         </div>
     )
-}
+});
