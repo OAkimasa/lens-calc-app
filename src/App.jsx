@@ -49,11 +49,12 @@ export const App = () => {
   // 入力されたパラメーターの表示
   return (
     <DefaultLayout>
-      <main class="mx-2 mb-auto">
-        <p class="text-gray-800 text-9xl">Let's</p>
-        <p class="text-gray-800 text-9xl">Lens</p>
-        <p class="text-gray-800 text-9xl">Simulation!!!</p>
-        <div class="text-gray-800 text-5xl">tailwind test success!!!!!</div>
+      <main class="mx-0 mb-auto">
+        <div class="">
+          <h1 class="text-gray-800 text-9xl mx-3">Lens</h1>
+          <h1 class="text-gray-800 text-9xl mx-3">Calculation</h1>
+          <h1 class="h-40 text-gray-800 text-9xl mx-3">System</h1>
+        </div>
         <AddLensSurface
           nLensLeft={nLensLeft}
           nLensRight={nLensRight}

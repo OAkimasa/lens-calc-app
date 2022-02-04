@@ -1,4 +1,6 @@
-export const PrimaryThread = (props) => {
+import { memo } from "react";
+
+export const PrimaryThread = memo((props) => {
     const { children } = props;
     return (
         <>
@@ -10,4 +12,4 @@ export const PrimaryThread = (props) => {
             </td>
         </>
     );
-};
+});

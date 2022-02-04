@@ -1,13 +1,13 @@
-import React from "react";
+import React, { memo } from "react";
 import { PrimaryButton } from "../components/atoms/button/PrimaryButton";
 import { InputWithLabel } from "../components/molecules/InputWithLabel";
 
-export const AddLensSurface = (props) => {
+export const AddLensSurface = memo((props) => {
     const { nLensLeft, nLensRight, onchangeInputNLensLeft, onchangeInputNLensRight, onClickAddParams } = props;
     return (
-        <div class="mx-2">
+        <div class="mx-4 my-6">
             <br />
-            <div>
+            <div class="mb-2 mx-2">
                 <InputWithLabel
                     onChange={onchangeInputNLensLeft}
                     placeholder="左側の屈折率を入力"
@@ -28,4 +28,4 @@ export const AddLensSurface = (props) => {
             </div>
         </div>
     );
-};
+});

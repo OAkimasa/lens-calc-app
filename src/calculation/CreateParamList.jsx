@@ -1,18 +1,14 @@
-import React from "react";
+import React, { memo } from "react";
 import { PrimaryTable } from "../components/molecules/PrimayTable";
 
-export const CreateParamList = (props) => {
+export const CreateParamList = memo((props) => {
     const { allLensParams } = props;
     return (
-        <div class="mx-2">
-            <div>
-                <div>
-                    <ul>
-                        <br />
-                        <PrimaryTable>{allLensParams}</PrimaryTable>
-                    </ul>
-                </div>
-            </div>
+        <div class="mx-6">
+            <ul>
+                <br />
+                <PrimaryTable>{allLensParams}</PrimaryTable>
+            </ul>
         </div>
     );
-};
+});

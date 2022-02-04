@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { PrimaryThread } from "../atoms/thread/PrimaryThread";
 
-export const PrimaryTable = (props) => {
+export const PrimaryTable = memo((props) => {
     const { children } = props;
     //console.log("children=",children);
     return (
@@ -33,4 +34,4 @@ export const PrimaryTable = (props) => {
             </div>
         </div>
     );
-};
+});
