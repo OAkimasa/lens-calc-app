@@ -17,6 +17,7 @@ export const PrimaryTable = memo((props) => {
                                     <PrimaryThread>- Right n -</PrimaryThread>
                                     <PrimaryThread>- Curvature -</PrimaryThread>
                                     <PrimaryThread>- Point x -</PrimaryThread>
+                                    <PrimaryThread>- Lens Radius -</PrimaryThread>
                                 </tr>
                             </thead>
                             <tbody class="bg-white border-b">
@@ -28,6 +29,7 @@ export const PrimaryTable = memo((props) => {
                                             <PrimaryThread>{param[1]}</PrimaryThread>
                                             <PrimaryThread>{param[2]}</PrimaryThread>
                                             <PrimaryThread>{param[3]}</PrimaryThread>
+                                            <PrimaryThread>{param[4]}</PrimaryThread>
                                         </tr>
                                     );
                                 })}

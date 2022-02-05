@@ -15,12 +15,14 @@ export const App = () => {
   const [nLensRight, setNLensRight] = useState("");
   const [curvature, setCurvature] = useState("");
   const [pointX, setPointX] = useState("");
+  const [lensRadius, setLensRadius] = useState("");
 
   // パラメーターの入力処理
   const onchangeInputNLensLeft = (event) => setNLensLeft(event.target.value);
   const onchangeInputNLensRight = (event) => setNLensRight(event.target.value);
   const onchangeInputCurvature = (event) => setCurvature(event.target.value);
   const onchangeInputPointX = (event) => setPointX(event.target.value);
+  const onchangeInputLensRadius = (event) => setLensRadius(event.target.value);
 
   // パラメーター追加ボタン
   const onClickAddParams = () => {
@@ -29,12 +31,14 @@ export const App = () => {
     if (nLensRight === "") return;
     if (curvature === "") return;
     if (pointX === "") return;
+    if (lensRadius === "") return;
     if (isNaN(nLensLeft)) {
       alert("数値を入力してください（左側屈折率）");
       setNLensLeft("");
       setNLensRight("");
       setCurvature("");
       setPointX("");
+      setLensRadius("");
       return;
     };
     if (isNaN(nLensRight)) {
@@ -43,6 +47,7 @@ export const App = () => {
       setNLensRight("");
       setCurvature("");
       setPointX("");
+      setLensRadius("");
       return;
     };
     if (isNaN(curvature)) {
@@ -51,6 +56,7 @@ export const App = () => {
       setNLensRight("");
       setCurvature("");
       setPointX("");
+      setLensRadius("");
       return;
     };
     if (isNaN(pointX)) {
@@ -59,17 +65,28 @@ export const App = () => {
       setNLensRight("");
       setCurvature("");
       setPointX("");
+      setLensRadius("");
+      return;
+    };
+    if (isNaN(lensRadius)) {
+      alert("数値を入力してください（レンズ半径）");
+      setNLensLeft("");
+      setNLensRight("");
+      setCurvature("");
+      setPointX("");
+      setLensRadius("");
       return;
     };
 
     // 全て数値の場合のみパラメーターを更新
-    const newALensParams = [nLensLeft, nLensRight, curvature, pointX];
+    const newALensParams = [nLensLeft, nLensRight, curvature, pointX, lensRadius];
     setALensParams(newALensParams);
     //setNLensLeft(nLensRight);
     setNLensLeft("");
     setNLensRight("");
     setCurvature("");
     setPointX("");
+    setLensRadius("");
     const newParams = [...allLensParams, newALensParams];
     setAllLensParams(newParams);
   };
@@ -94,10 +111,12 @@ export const App = () => {
           nLensRight={nLensRight}
           curvature={curvature}
           pointX={pointX}
+          lensRadius={lensRadius}
           onchangeInputNLensLeft={onchangeInputNLensLeft}
           onchangeInputNLensRight={onchangeInputNLensRight}
           onchangeInputCurvature={onchangeInputCurvature}
           onchangeInputPointX={onchangeInputPointX}
+          onchangeInputLensRadius={onchangeInputLensRadius}
           onClickAddParams={onClickAddParams}
         />
 

@@ -3,7 +3,7 @@ import { PrimaryButton } from "../components/atoms/button/PrimaryButton";
 import { InputWithLabel } from "../components/molecules/InputWithLabel";
 
 export const AddLensSurface = memo((props) => {
-    const { nLensLeft, nLensRight, curvature, pointX, onchangeInputNLensLeft, onchangeInputNLensRight, onchangeInputCurvature, onchangeInputPointX, onClickAddParams } = props;
+    const { nLensLeft, nLensRight, curvature, pointX, lensRadius, onchangeInputNLensLeft, onchangeInputNLensRight, onchangeInputCurvature, onchangeInputPointX, onchangeInputLensRadius, onClickAddParams } = props;
     return (
         <div class="mx-4 my-6">
             <br />
@@ -38,6 +38,14 @@ export const AddLensSurface = memo((props) => {
                     value={pointX}
                 >
                     - Point x -
+                </InputWithLabel>
+
+                <InputWithLabel
+                    onChange={onchangeInputLensRadius}
+                    placeholder="レンズ半径を入力"
+                    value={lensRadius}
+                >
+                    - Lens Radius -
                 </InputWithLabel>
 
                 <PrimaryButton onClick={onClickAddParams}>

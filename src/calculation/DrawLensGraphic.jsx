@@ -9,7 +9,7 @@ export const DrawLensGraphic = (props) => {
 
     useEffect(() => {
         let elt = document.getElementById('calculator');
-        let tmp = Desmos.GraphingCalculator(elt, { keypad: false, expressions: false });
+        let tmp = Desmos.GraphingCalculator(elt, { keypad: false, expressions: false, settingsMenu: false, showGrid: false });
         setCalc(tmp);
         return () => {
             // window.Desmos.GraphingCalculator.destroy()
@@ -19,7 +19,28 @@ export const DrawLensGraphic = (props) => {
     useEffect(() => {
         if (calc !== undefined) {
             allLensParams.map((param, index) => {
-            calc.setExpression({ id: 'graph'+index, latex: `(x-${param[3]})^2+y^2=`+param[2]**2 });
+            if (0 <= param[2]) {
+                calc.setExpression({
+                    id: 'graph'+index,
+                    color: Desmos.Colors.BLUE,
+                    latex: `
+                        (x-${param[2]}-${param[3]})^2+y^2=(${param[2]})^2
+                        \\space\\left\\{-${param[4]} \\le y \\le ${param[4]}\\right\\}
+                        \\left\\{${param[3]} \\le x \\le ${param[2]}+${param[3]}\\right\\}
+                    `,
+                });
+            };
+            if (param[2] < 0) {
+                calc.setExpression({
+                    id: 'graph'+index,
+                    color: Desmos.Colors.BLUE,
+                    latex: `
+                        (x-${param[2]}-${param[3]})^2+y^2=(-${param[2]})^2
+                        \\space\\left\\{-${param[4]} \\le y \\le ${param[4]}\\right\\}
+                        \\left\\{${param[2]}+${param[3]} \\le x \\le ${param[3]}\\right\\}
+                    `,
+                });
+            }
         })
         }
     }, [allLensParams]);
