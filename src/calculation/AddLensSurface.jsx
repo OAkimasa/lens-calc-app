@@ -3,7 +3,7 @@ import { PrimaryButton } from "../components/atoms/button/PrimaryButton";
 import { InputWithLabel } from "../components/molecules/InputWithLabel";
 
 export const AddLensSurface = memo((props) => {
-    const { nLensLeft, nLensRight, onchangeInputNLensLeft, onchangeInputNLensRight, onClickAddParams } = props;
+    const { nLensLeft, nLensRight, curvature, pointX, onchangeInputNLensLeft, onchangeInputNLensRight, onchangeInputCurvature, onchangeInputPointX, onClickAddParams } = props;
     return (
         <div class="mx-4 my-6">
             <br />
@@ -15,6 +15,7 @@ export const AddLensSurface = memo((props) => {
                 >
                     - Left n -
                 </InputWithLabel>
+
                 <InputWithLabel
                     onChange={onchangeInputNLensRight}
                     placeholder="右側の屈折率を入力"
@@ -22,6 +23,23 @@ export const AddLensSurface = memo((props) => {
                 >
                     - Right n -
                 </InputWithLabel>
+
+                <InputWithLabel
+                    onChange={onchangeInputCurvature}
+                    placeholder="球面の曲率を入力"
+                    value={curvature}
+                >
+                    - Curvature -
+                </InputWithLabel>
+
+                <InputWithLabel
+                    onChange={onchangeInputPointX}
+                    placeholder="球面の位置を入力"
+                    value={pointX}
+                >
+                    - Point x -
+                </InputWithLabel>
+
                 <PrimaryButton onClick={onClickAddParams}>
                     Add Surface
                 </PrimaryButton>

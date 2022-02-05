@@ -2,7 +2,7 @@ import { memo } from "react";
 
 export const Input = memo((props) => {
     const { onChange, placeholder = "", value } = props;
-    return <input type="number" step="0.1" min="1.00000"
+    return <input type="number" step="0.1"
         onChange={event => onChange(event)}
         placeholder={placeholder}
         value={value}
