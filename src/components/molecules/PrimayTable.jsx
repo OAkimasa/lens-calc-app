@@ -15,6 +15,9 @@ export const PrimaryTable = memo((props) => {
                                     <PrimaryThread>- Surface -</PrimaryThread>
                                     <PrimaryThread>- Left n -</PrimaryThread>
                                     <PrimaryThread>- Right n -</PrimaryThread>
+                                    <PrimaryThread>- Surface Radius -</PrimaryThread>
+                                    <PrimaryThread>- Point x -</PrimaryThread>
+                                    <PrimaryThread>- Lens Radius -</PrimaryThread>
                                 </tr>
                             </thead>
                             <tbody class="bg-white border-b">
@@ -24,6 +27,9 @@ export const PrimaryTable = memo((props) => {
                                             <PrimaryThread>{index+1}</PrimaryThread>
                                             <PrimaryThread>{param[0]}</PrimaryThread>
                                             <PrimaryThread>{param[1]}</PrimaryThread>
+                                            <PrimaryThread>{param[2]}</PrimaryThread>
+                                            <PrimaryThread>{param[3]}</PrimaryThread>
+                                            <PrimaryThread>{param[4]}</PrimaryThread>
                                         </tr>
                                     );
                                 })}
