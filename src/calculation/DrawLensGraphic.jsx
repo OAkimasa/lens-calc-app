@@ -59,52 +59,33 @@ export const DrawLensGraphic = ({ allLensParams }) => {
         }
     }, [allLensParams]);
 
-    // レイトレーシングパラメータ
-    //const [sP, setsP] = useState([-5, 0]);
-    //const [T, setT] = useState(2);
-    //const [dV, setdV] = useState([1, 0.3]);
-
-    // 一段階ごとに高さを変えて6本の光線を計算
-    /**
-    const RayTraceT = useCallback((params) => {
-        const param2 = Number(params[2])
-        //console.log(param2);
-        const param3 = Number(params[3])
-        //console.log(param3);
-        const A = (dV[0] ** 2) / param2 ** 2
-            + (dV[1] ** 2) / param2 ** 2
-        const B = (sP[0] - param2 - param3) * dV[0] / param2 ** 2
-            + (sP[1]) * dV[1] / param2 ** 2
-        const C = -1 + (sP[0] - param2 - param3) ** 2 / param2 ** 2
-            + (sP[1]) ** 2 / param2 ** 2
-        // レンズ曲率で場合分け
-        if (0 <= param2) {
-            setT((-B - Math.sqrt(B ** 2 - A * C)) / A)
-            //setsP([sP[0] + dV[0] * (-B - Math.sqrt(B ** 2 - A * C)) / A,
-            //sP[1] + dV[1] * (-B - Math.sqrt(B ** 2 - A * C)) / A])
-        } else {
-            setT((-B + Math.sqrt(B ** 2 - A * C)) / A)
-            //setsP([sP[0] + dV[0] * (-B + Math.sqrt(B ** 2 - A * C)) / A,
-            //sP[1] + dV[1] * (-B + Math.sqrt(B ** 2 - A * C)) / A])
-        }
-    }, [])
-     */
-
     // 光線のパラメーターは、[sP0, sP1, T, dV0, dV1]
     const allRayParams = []
     const RayTraceTTT = allLensParams.map((params, index) => {
         // [sP0, sP1, T, dV0, dV1]のかたまりを作る
         const paramBox = [];
+        // 変数宣言
         const sP = [];
         const dV = [];
+        const nV = [];
+        const normnV = [];
+        const normdV = [];
+        const paramA = [];
+        const cos_t_in = [];
+        const cos_t_out = [];
+        const sin_t_in = [];
+        const sin_t_out = [];
+        const paramB = [];
+        const outdV = [];
+        const normoutdV = [];
 
         // ---------------始点 の計算 start--------------------------
         if (index == 0) {
             // 初期値
             paramBox[0] = -5;
-            paramBox[1] = 0;
+            paramBox[1] = 1;
             sP[0] = -5;
-            sP[1] = 0;
+            sP[1] = 1;
         } else {
             // 前回の終点を引き継ぐ
             paramBox[0] = allRayParams[index - 1][0] + allRayParams[index - 1][2] * allRayParams[index - 1][3];
@@ -118,15 +99,82 @@ export const DrawLensGraphic = ({ allLensParams }) => {
         if (index == 0) {
             // 初期値
             paramBox[3] = 1;
-            paramBox[4] = 0.3;
-            dV[0] = 1;
-            dV[1] = 0.3;
-        } else {
-            // 屈折計算 (法線ベクトルの計算が必要)
-            paramBox[3] = 1;
             paramBox[4] = 0;
             dV[0] = 1;
             dV[1] = 0;
+            console.log("dV=", index, dV)
+        } else {
+            // ---------------------------------------------------
+            // 屈折計算 start--------------------------------------
+
+            // step1 法線ベクトルの計算----------------(平面の場合は別処理したほうが良さそう r5000が境界ぽい)
+            nV[0] = (2 / allLensParams[index - 1][2] ** 2) * (sP[0] - allLensParams[index - 1][2] - allLensParams[index - 1][3])
+            nV[1] = (2 / allLensParams[index - 1][2] ** 2) * (sP[1])
+            // step1 end------------------------------
+
+            // step2 スネルの法則----------------------
+            // まず直前の方向ベクトル
+            dV[0] = allRayParams[index - 1][3]
+            dV[1] = allRayParams[index - 1][4]
+            // 正規化
+            normnV[0] = Math.sqrt(nV[0] ** 2 + nV[1] ** 2)
+            nV[0] = nV[0] / normnV[0]
+            nV[1] = nV[1] / normnV[0]
+            normdV[0] = Math.sqrt(dV[0] ** 2 + dV[1] ** 2)
+            dV[0] = dV[0] / normdV[0]
+            dV[1] = dV[1] / normdV[0]
+            console.log("dV=", index, dV)
+            //console.log(paramA)
+            if (allLensParams[index - 1][2] >= 0) {
+                // 左に凸の場合
+                // 係数 A
+                paramA[0] = allLensParams[index - 1][0] / allLensParams[index - 1][1]
+                // 入射角
+                cos_t_in[0] = -(dV[0] * nV[0] + dV[1] * nV[1])
+            } else {
+                // 右に凸の場合
+                // 係数 A
+                paramA[0] = allLensParams[index - 1][1] / allLensParams[index - 1][0]
+                // 入射角
+                cos_t_in[0] = (dV[0] * nV[0] + dV[1] * nV[1])
+            }
+            // 量子化誤差対策
+            if (cos_t_in[0] < -1.) {
+                cos_t_in[0] = -1.
+            } else if (cos_t_in[0] > 1.) {
+                cos_t_in[0] = 1.
+            }
+            console.log(cos_t_in)
+            // スネルの法則
+            sin_t_in[0] = Math.sqrt(1.0 - cos_t_in[0] ** 2)
+            sin_t_out[0] = sin_t_in[0] * paramA[0]
+            if (sin_t_out[0] > 1.0) {
+                // 全反射
+                outdV[0] = 0
+                outdV[1] = 0
+            }
+            cos_t_out[0] = Math.sqrt(1.0 - sin_t_out[0] ** 2)
+            console.log(cos_t_out)
+            // 係数 B
+            paramB[0] = -cos_t_out[0] + paramA[0] * cos_t_in[0]
+            //console.log(paramB)
+            // 出射方向ベクトル
+            outdV[0] = paramA[0] * dV[0] + paramB[0] * nV[0]
+            outdV[1] = paramA[0] * dV[1] + paramB[0] * nV[1]
+            console.log(outdV)
+            // 正規化
+            normoutdV[0] = Math.sqrt(outdV[0] ** 2 + outdV[1] ** 2)
+            outdV[0] = outdV[0] / normoutdV[0]
+            outdV[1] = outdV[1] / normoutdV[0]
+            console.log(outdV)
+            // step2 end------------------------------
+
+            paramBox[3] = outdV[0];
+            paramBox[4] = outdV[1];
+            dV[0] = outdV[0];
+            dV[1] = outdV[1];
+            // 屈折計算 end----------------------------------------
+            // ---------------------------------------------------
         }
         // ---------------方向ベクトル の計算 end--------------------------
 
@@ -164,6 +212,7 @@ export const DrawLensGraphic = ({ allLensParams }) => {
                 // 光線 (屈折計算がまだ)
                 calc.setExpression({
                     id: 'ray1' + index,
+                    color: Desmos.Colors.ORANGE,
                     latex: `
                     ${param[3]}(y-${param[1]})=${param[4]}(x-${param[0]})
                         \\left\\{${param[0]} \\le x \\le ${param[0] + param[2] * param[3]}\\right\\}
@@ -172,26 +221,6 @@ export const DrawLensGraphic = ({ allLensParams }) => {
             })
         }
     }, [allRayParams]);
-    /**
-    // 光線の描画
-    useEffect(() => {
-        if (calc !== undefined) {
-            allLensParams.map((param, index) => {
-                // 光線 (屈折計算がまだ)
-                // 係数 T
-                RayTraceT(param)
-                console.log(index, sP)
-                calc.setExpression({
-                    id: 'ray1' + index,
-                    latex: `
-                    ${dV[0]}(y-${sP[1]})=${dV[1]}(x-${sP[0]})
-                        \\left\\{${sP[0]} \\le x \\le ${sP[0] + T * dV[0]}\\right\\}
-                    `,
-                });
-            })
-        }
-    }, [allLensParams, T, setsP, dV]);
-    */
 
     return (
         <div class="mx-6 my-8">
