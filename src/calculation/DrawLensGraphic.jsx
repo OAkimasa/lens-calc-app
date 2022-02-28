@@ -9,7 +9,7 @@ export const DrawLensGraphic = ({ allLensParams }) => {
         let elt = document.getElementById('calculator');
         let tmp = Desmos.GraphingCalculator(elt, {
             keypad: false,
-            expressions: true,
+            expressions: false,
             settingsMenu: false,
             showGrid: false,
             expressionsCollapsed: true,
@@ -18,8 +18,8 @@ export const DrawLensGraphic = ({ allLensParams }) => {
         tmp.setMathBounds({
             left: -6,
             right: 14,
-            bottom: -7,
-            top: 7,
+            bottom: -5,
+            top: 5,
         });
         setCalc(tmp);
         return () => {
@@ -202,8 +202,8 @@ export const DrawLensGraphic = ({ allLensParams }) => {
 
 
     //const allRayParams = RayTraceTTT(allLensParams);
-    console.log(allLensParams)
-    console.log(allRayParams)
+    //console.log(allLensParams)
+    //console.log(allRayParams)
 
     // 光線の描画
     useEffect(() => {
@@ -222,14 +222,56 @@ export const DrawLensGraphic = ({ allLensParams }) => {
         }
     }, [allRayParams]);
 
-    return (
-        <div class="mx-6 my-8">
-            <div className="DrawLensGraphic">
-                <div id="calculator" style={{
-                    width: "600px",
-                    height: "400px",
-                }}></div>
-            </div>
-        </div>
-    );
+    // レスポンシブ対応
+    var windowSize = window.innerWidth;
+    //console.log(windowSize)
+    if (windowSize < 400) {
+        return (
+            <>
+                <div className="mx-6 my-8">
+                    <div className="DrawLensGraphic">
+                        <div
+                            id="calculator"
+                            style={{
+                                width: "100%",
+                                height: "170px",
+                            }}
+                        ></div>
+                    </div>
+                </div>
+            </>
+        )
+    } else if (windowSize < 900) {
+        return (
+            <>
+                <div className="mx-6 my-8">
+                    <div className="DrawLensGraphic">
+                        <div
+                            id="calculator"
+                            style={{
+                                width: "100%",
+                                height: "390px",
+                            }}
+                        ></div>
+                    </div>
+                </div>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <div className="mx-6 my-8">
+                    <div className="DrawLensGraphic">
+                        <div
+                            id="calculator"
+                            style={{
+                                width: "1000px",
+                                height: "500px",
+                            }}
+                        ></div>
+                    </div>
+                </div>
+            </>
+        )
+    }
 };

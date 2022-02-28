@@ -4,6 +4,7 @@ import { AddLensSurface } from "./calculation/AddLensSurface";
 import { CreateParamList } from "./calculation/CreateParamList";
 import { DefaultLayout } from "./components/templetes/DefaultLayout";
 import { DrawLensGraphic } from "./calculation/DrawLensGraphic";
+import { LensTemplates } from "./calculation/LensTemplates";
 
 export const App = () => {
   // 全ての境界のパラメーターリスト
@@ -100,14 +101,21 @@ export const App = () => {
         <script src="https://www.desmos.com/api/v1.6/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
       </head>
       <DefaultLayout>
-        <main class="mx-0 mb-auto mt-3">
-          <div class="">
-            <h1 class="text-gray-800 text-5xl mx-3">Lens</h1>
-            <h1 class="text-gray-800 text-5xl mx-3">Calculation</h1>
-            <h1 class="h-18 text-gray-800 text-5xl mx-3">System</h1>
+        <main className="mx-0 mb-auto mt-3">
+          <div className="">
+            <h1 className="text-gray-800 text-5xl mx-6">Lens</h1>
+            <h1 className="text-gray-800 text-5xl mx-6">Calculation</h1>
           </div>
-
-          <div class="md: flex">
+          <div className="lg:flex">
+            <DrawLensGraphic
+              allLensParams={allLensParams}
+            />
+            <LensTemplates />
+          </div>
+          <div className="lg:grid lg:grid-cols-2">
+            <CreateParamList
+              allLensParams={allLensParams}
+            />
             <AddLensSurface
               nLensLeft={nLensLeft}
               nLensRight={nLensRight}
@@ -121,18 +129,8 @@ export const App = () => {
               onchangeInputLensRadius={onchangeInputLensRadius}
               onClickAddParams={onClickAddParams}
             />
-
-            <DrawLensGraphic
-              allLensParams={allLensParams}
-            />
           </div>
-
-          <CreateParamList
-            allLensParams={allLensParams}
-          />
-
           <br />
-
         </main>
       </DefaultLayout>
     </>

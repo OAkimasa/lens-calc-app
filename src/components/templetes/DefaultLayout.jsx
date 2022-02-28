@@ -6,11 +6,11 @@ export const DefaultLayout = memo((props) => {
     const { children } = props;
     return (
         <>
-        <div class="flex flex-col min-h-screen justify-between">
-            <Header />
-            {children}
-            <Footer />
-        </div>
+            <div className="flex flex-col min-h-screen justify-between">
+                <Header />
+                {children}
+                <Footer />
+            </div>
         </>
     )
 });
