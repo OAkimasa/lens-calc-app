@@ -4,8 +4,11 @@ import { AddLensSurface } from "./calculation/AddLensSurface";
 import { CreateParamList } from "./calculation/CreateParamList";
 import { DefaultLayout } from "./components/templetes/DefaultLayout";
 import { DrawLensGraphic } from "./calculation/DrawLensGraphic";
+import { LensTemplates } from "./calculation/LensTemplates";
 
 export const App = () => {
+  const [calc, setCalc] = useState();
+  const allRayParams = []
   // 全ての境界のパラメーターリスト
   const [allLensParams, setAllLensParams] = useState([]);
   // 境界 1つについてのパラメーターリスト
@@ -23,6 +26,56 @@ export const App = () => {
   const onchangeInputSurfaceRadius = (event) => setSurfaceRadius(event.target.value);
   const onchangeInputPointX = (event) => setPointX(event.target.value);
   const onchangeInputLensRadius = (event) => setLensRadius(event.target.value);
+
+  // レンズテンプレート操作
+  const setWaterBallParams = () => {
+    // desmos reset
+    calc.removeExpressions(calc.getExpressions())
+    setAllLensParams(
+      [[1, 1.333, 3, 0, 3],
+      [1.333, 1, -3, 6, 3],
+      [1, 1, 1000, 100, 1000]]
+    )
+  }
+  const set135mmLensParams = () => {
+    // desmos reset
+    calc.removeExpressions(calc.getExpressions())
+    setAllLensParams(
+      [[1, 1.60008, 4.78, 0, 1.791],
+      [1.60008, 1.49552, -9.3, 0.756, 1.791],
+      [1.49552, 1, 26.25, 1.026, 1.788],
+      [1, 1.61506, -11.27, 1.886, 1.26],
+      [1.61506, 1, 4.3, 2.4, 1.26],
+      [1, 1.50592, 1000, 3.676, 1.395],
+      [1.50592, 1.58619, 6.58, 3.876, 1.395],
+      [1.58619, 1, -9.305, 4.456, 1.395],
+      [1, 1, 1000, 100, 100]]
+    )
+  }
+  const setSemicircle1Params = () => {
+    // desmos reset
+    calc.removeExpressions(calc.getExpressions())
+    setAllLensParams(
+      [[1, 1.6, 3, 0, 3],
+      [1.6, 1, -1000, 3, 3],
+      [1, 1, 1000, 100, 1000]]
+    )
+  }
+  const setSemicircle2Params = () => {
+    // desmos reset
+    calc.removeExpressions(calc.getExpressions())
+    setAllLensParams(
+      [[1, 1.6, 1000, 0, 3],
+      [1.6, 1, -3, 3, 3],
+      [1, 1, 1000, 100, 1000]]
+    )
+  }
+  const deleteAllExpression = () => {
+    // desmos reset
+    calc.removeExpressions(calc.getExpressions())
+    setAllLensParams([])
+    allRayParams.length = 0;
+  }
 
   // パラメーター追加ボタン
   const onClickAddParams = () => {
@@ -81,7 +134,6 @@ export const App = () => {
     // 全て数値の場合のみパラメーターを更新
     const newALensParams = [nLensLeft, nLensRight, surfaceRadius, pointX, lensRadius];
     setALensParams(newALensParams);
-    //setNLensLeft(nLensRight);
     setNLensLeft(nLensRight);
     setNLensRight("");
     setSurfaceRadius("");
@@ -100,14 +152,30 @@ export const App = () => {
         <script src="https://www.desmos.com/api/v1.6/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
       </head>
       <DefaultLayout>
-        <main class="mx-0 mb-auto mt-3">
-          <div class="">
-            <h1 class="text-gray-800 text-5xl mx-3">Lens</h1>
-            <h1 class="text-gray-800 text-5xl mx-3">Calculation</h1>
-            <h1 class="h-18 text-gray-800 text-5xl mx-3">System</h1>
+        <main className="mx-0 mb-auto mt-3">
+          <div className="">
+            <h1 className="text-gray-800 text-5xl mx-6">Lens</h1>
+            <h1 className="text-gray-800 text-5xl mx-6">Calculation</h1>
           </div>
-
-          <div class="md: flex">
+          <div className="lg:flex">
+            <DrawLensGraphic
+              allLensParams={allLensParams}
+              allRayParams={allRayParams}
+              calc={calc}
+              setCalc={setCalc}
+            />
+            <LensTemplates
+              setWaterBallParams={setWaterBallParams}
+              set135mmLensParams={set135mmLensParams}
+              setSemicircle1Params={setSemicircle1Params}
+              setSemicircle2Params={setSemicircle2Params}
+              deleteAllExpression={deleteAllExpression}
+            />
+          </div>
+          <div className="lg:grid lg:grid-cols-2">
+            <CreateParamList
+              allLensParams={allLensParams}
+            />
             <AddLensSurface
               nLensLeft={nLensLeft}
               nLensRight={nLensRight}
@@ -121,18 +189,9 @@ export const App = () => {
               onchangeInputLensRadius={onchangeInputLensRadius}
               onClickAddParams={onClickAddParams}
             />
-
-            <DrawLensGraphic
-              allLensParams={allLensParams}
-            />
           </div>
-
-          <CreateParamList
-            allLensParams={allLensParams}
-          />
-
           <br />
-
+          <p className="flex justify-center">The unit of length is cm.</p>
         </main>
       </DefaultLayout>
     </>

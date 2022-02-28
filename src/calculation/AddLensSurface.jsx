@@ -5,9 +5,9 @@ import { InputWithLabel } from "../components/molecules/InputWithLabel";
 export const AddLensSurface = memo((props) => {
     const { nLensLeft, nLensRight, surfaceRadius, pointX, lensRadius, onchangeInputNLensLeft, onchangeInputNLensRight, onchangeInputSurfaceRadius, onchangeInputPointX, onchangeInputLensRadius, onClickAddParams } = props;
     return (
-        <div class="mx-4 my-6">
+        <div className="mx-4 my-6 flex justify-center">
             <br />
-            <div class="mb-2 mx-2">
+            <div className="mb-2 mx-2">
                 <InputWithLabel
                     onChange={onchangeInputNLensLeft}
                     placeholder="左側の屈折率を入力"
@@ -26,7 +26,7 @@ export const AddLensSurface = memo((props) => {
 
                 <InputWithLabel
                     onChange={onchangeInputSurfaceRadius}
-                    placeholder="球面の曲率を入力"
+                    placeholder="球面の曲率半径を入力"
                     value={surfaceRadius}
                 >
                     - Surface Radius -
