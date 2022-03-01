@@ -20,7 +20,7 @@ export const LensTemplates = ({
             </div>
             <div className="grid grid-cols-2 gap-4 ml-6 mr-6 lg:ml-10">
                 <div className="">
-                    <img src={Semicircle1Pic} alt="picture" onClick={setSemicircle1Params} />
+                    <img src={Semicircle1Pic} onClick={setSemicircle1Params} />
                     <div className="flex justify-center">
                         <PrimaryButton onClick={setSemicircle1Params}>
                             <p
@@ -30,7 +30,7 @@ export const LensTemplates = ({
                     </div>
                 </div>
                 <div>
-                    <img src={Semicircle2Pic} alt="picture" onClick={setSemicircle2Params} />
+                    <img src={Semicircle2Pic} onClick={setSemicircle2Params} />
                     <div className="flex justify-center">
                         <PrimaryButton onClick={setSemicircle2Params}>
                             <p
@@ -40,7 +40,7 @@ export const LensTemplates = ({
                     </div>
                 </div>
                 <div>
-                    <img src={WaterBallPic} alt="picture" onClick={setWaterBallParams} />
+                    <img src={WaterBallPic} onClick={setWaterBallParams} />
                     <div className="flex justify-center">
                         <PrimaryButton onClick={setWaterBallParams}>
                             <p
@@ -50,7 +50,7 @@ export const LensTemplates = ({
                     </div>
                 </div>
                 <div>
-                    <img src={lens135mmPic} alt="picture" onClick={set135mmLensParams} />
+                    <img src={lens135mmPic} onClick={set135mmLensParams} />
                     <div className="flex justify-center">
                         <PrimaryButton onClick={set135mmLensParams}>
                             <p

@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import Desmos from "desmos";
 
 export const DrawLensGraphic = ({ allLensParams, allRayParams, calc, setCalc }) => {
