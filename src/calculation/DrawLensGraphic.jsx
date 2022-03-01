@@ -41,6 +41,31 @@ export const DrawLensGraphic = ({ allLensParams, allRayParams, calc, setCalc }) 
                         \\left\\{${param[3]} \\le x \\le ${param[2]}+${param[3]}\\right\\}
                     `,
                     });
+                    if (param[0] == 1) {
+                        calc.setExpression({
+                            id: 'pointL' + index,
+                            color: Desmos.Colors.BLACK,
+                            hidden: true,
+                            latex: `(${param[3]}, ${param[4]}*1.3)`,
+                            label: `air←`,
+                            showLabel: true,
+                            labelSize: Desmos.LabelSizes.SMALL,
+                            labelOrientation: Desmos.LabelOrientations.LEFT,
+                            dragMode: Desmos.DragModes.NONE,
+                        });
+                    } else if (param[1] == 1) {
+                        calc.setExpression({
+                            id: 'pointL' + index,
+                            color: Desmos.Colors.BLACK,
+                            hidden: true,
+                            latex: `(${param[3]}, ${param[4]}*1.2)`,
+                            label: `→air`,
+                            showLabel: true,
+                            labelSize: Desmos.LabelSizes.SMALL,
+                            labelOrientation: Desmos.LabelOrientations.RIGHT,
+                            dragMode: Desmos.DragModes.NONE,
+                        });
+                    }
                 };
                 // 右側へ凸なレンズ (たぶん実装完了)
                 if (param[2] < 0) {
@@ -53,6 +78,31 @@ export const DrawLensGraphic = ({ allLensParams, allRayParams, calc, setCalc }) 
                         \\left\\{${param[2]}+${param[3]} \\le x \\le ${param[3]}\\right\\}
                     `,
                     });
+                    if (param[0] == 1) {
+                        calc.setExpression({
+                            id: 'pointR' + index,
+                            color: Desmos.Colors.BLACK,
+                            hidden: true,
+                            latex: `(${param[3]}, -${param[4]}*1.7)`,
+                            label: `air←`,
+                            showLabel: true,
+                            labelSize: Desmos.LabelSizes.SMALL,
+                            labelOrientation: Desmos.LabelOrientations.LEFT,
+                            dragMode: Desmos.DragModes.NONE,
+                        });
+                    } else if (param[1] == 1) {
+                        calc.setExpression({
+                            id: 'pointR' + index,
+                            color: Desmos.Colors.BLACK,
+                            hidden: true,
+                            latex: `(${param[3]}, -${param[4]}*1.1)`,
+                            label: `→air`,
+                            showLabel: true,
+                            labelSize: Desmos.LabelSizes.SMALL,
+                            labelOrientation: Desmos.LabelOrientations.RIGHT,
+                            dragMode: Desmos.DragModes.NONE,
+                        });
+                    }
                 };
             })
         }
@@ -61,6 +111,8 @@ export const DrawLensGraphic = ({ allLensParams, allRayParams, calc, setCalc }) 
     // 光線のパラメーターは、[sP0, sP1, T, dV0, dV1]
     const roopY = [0.65, -0.4, -0.15, 0.15, 0.4, -0.65]
     const RayTraceTTT = (forIndex, roopValue) => {
+        // インデックス指定のため
+        const lensParamsLength = allLensParams.length
         allLensParams.map((params, index) => {
             // [sP0, sP1, T, dV0, dV1]のかたまりを作る
             const paramBox = [];
@@ -88,18 +140,18 @@ export const DrawLensGraphic = ({ allLensParams, allRayParams, calc, setCalc }) 
                 sP[1] = params[4] * roopValue;
             } else {
                 // 前回の終点を引き継ぐ
-                paramBox[0] = allRayParams[allLensParams.length * forIndex + index - 1][0]
-                    + allRayParams[allLensParams.length * forIndex + index - 1][2]
-                    * allRayParams[allLensParams.length * forIndex + index - 1][3];
-                paramBox[1] = allRayParams[allLensParams.length * forIndex + index - 1][1]
-                    + allRayParams[allLensParams.length * forIndex + index - 1][2]
-                    * allRayParams[allLensParams.length * forIndex + index - 1][4];
-                sP[0] = allRayParams[allLensParams.length * forIndex + index - 1][0]
-                    + allRayParams[allLensParams.length * forIndex + index - 1][2]
-                    * allRayParams[allLensParams.length * forIndex + index - 1][3];
-                sP[1] = allRayParams[allLensParams.length * forIndex + index - 1][1]
-                    + allRayParams[allLensParams.length * forIndex + index - 1][2]
-                    * allRayParams[allLensParams.length * forIndex + index - 1][4];
+                paramBox[0] = allRayParams[lensParamsLength * forIndex + index - 1][0]
+                    + allRayParams[lensParamsLength * forIndex + index - 1][2]
+                    * allRayParams[lensParamsLength * forIndex + index - 1][3];
+                paramBox[1] = allRayParams[lensParamsLength * forIndex + index - 1][1]
+                    + allRayParams[lensParamsLength * forIndex + index - 1][2]
+                    * allRayParams[lensParamsLength * forIndex + index - 1][4];
+                sP[0] = allRayParams[lensParamsLength * forIndex + index - 1][0]
+                    + allRayParams[lensParamsLength * forIndex + index - 1][2]
+                    * allRayParams[lensParamsLength * forIndex + index - 1][3];
+                sP[1] = allRayParams[lensParamsLength * forIndex + index - 1][1]
+                    + allRayParams[lensParamsLength * forIndex + index - 1][2]
+                    * allRayParams[lensParamsLength * forIndex + index - 1][4];
             }
             // ---------------始点 の計算 end--------------------------
 
@@ -122,8 +174,8 @@ export const DrawLensGraphic = ({ allLensParams, allRayParams, calc, setCalc }) 
 
                 // step2 スネルの法則----------------------
                 // まず直前の方向ベクトル
-                dV[0] = allRayParams[allLensParams.length * forIndex + index - 1][3]
-                dV[1] = allRayParams[allLensParams.length * forIndex + index - 1][4]
+                dV[0] = allRayParams[lensParamsLength * forIndex + index - 1][3]
+                dV[1] = allRayParams[lensParamsLength * forIndex + index - 1][4]
                 // 正規化
                 normnV[0] = Math.sqrt(nV[0] ** 2 + nV[1] ** 2)
                 nV[0] = nV[0] / normnV[0]

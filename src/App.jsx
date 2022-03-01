@@ -173,9 +173,11 @@ export const App = () => {
             />
           </div>
           <div className="lg:grid lg:grid-cols-2">
-            <CreateParamList
-              allLensParams={allLensParams}
-            />
+            <div className="lg:ml-32">
+              <CreateParamList
+                allLensParams={allLensParams}
+              />
+            </div>
             <AddLensSurface
               nLensLeft={nLensLeft}
               nLensRight={nLensRight}
