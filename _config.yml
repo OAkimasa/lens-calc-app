@@ -1,4 +1,5 @@
 sitemap:
+    url: https://oakimasa.github.io/lens-calc-app/
     path: sitemap.xml
     template: ./sitemap_template.xml
     rel: false
