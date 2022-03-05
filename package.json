@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "d3": "^7.3.0",
     "desmos": "^1.5.4",
+    "hexo-generator-sitemap": "^2.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
