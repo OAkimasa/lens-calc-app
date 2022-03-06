@@ -75,6 +75,11 @@ export const App = () => {
     calc.removeExpressions(calc.getExpressions())
     setAllLensParams([])
     allRayParams.length = 0;
+    setNLensLeft("");
+    setNLensRight("");
+    setSurfaceRadius("");
+    setPointX("");
+    setLensRadius("");
   }
 
   // パラメーター追加ボタン
@@ -155,7 +160,8 @@ export const App = () => {
         <main className="mx-0 mb-auto mt-3">
           <div className="">
             <h1 className="text-gray-800 text-5xl mx-6">Lens</h1>
-            <h1 className="text-gray-800 text-5xl mx-6">Calculation</h1>
+            <h1 className="text-gray-800 text-5xl mx-6">Refraction</h1>
+            <h1 className="text-gray-800 text-5xl mx-6">Calculator</h1>
           </div>
           <div className="lg:flex">
             <DrawLensGraphic
