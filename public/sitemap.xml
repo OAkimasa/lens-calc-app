@@ -4,7 +4,7 @@
   <url>
     <loc>https://oakimasa.github.io/lens-calc-app/</loc>
     {% if post.updated %}
-    <lastmod>2022-3-7</lastmod>
+    <lastmod>2022-3-11</lastmod>
     {% elif post.date %}
     <changefreq>daily</changefreq>
     <priority>1.0</priority>

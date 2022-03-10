@@ -82,6 +82,16 @@ export const App = () => {
     setLensRadius("");
   }
 
+  // パラメーター編集関数
+  const editParamFunc = (index0, index1) => {
+    console.log("edit start!!!", index0, index1)
+    const newAllLensParams = [...allLensParams]
+    // 新規入力で上書きしたい
+    //newAllLensParams[index0][index1] = 1
+    console.log("clone",newAllLensParams)
+    //setAllLensParams(newAllLensParams)
+  }
+
   // パラメーター追加ボタン
   const onClickAddParams = () => {
     if (aLensParams === []) return;
@@ -153,9 +163,6 @@ export const App = () => {
   // 入力されたパラメーターの表示
   return (
     <>
-      <head>
-        <script src="https://www.desmos.com/api/v1.6/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
-      </head>
       <DefaultLayout>
         <main className="mx-0 mb-auto mt-3">
           <div className="">
@@ -178,13 +185,16 @@ export const App = () => {
               deleteAllExpression={deleteAllExpression}
             />
           </div>
-          <div className="lg:grid lg:grid-cols-2">
-            <div className="lg:ml-32">
+          {/*<div className="lg:grid lg:grid-cols-2">*/}
+          <div className="lg:grid lg:grid-cols-1">
+            {/*<div className="lg:ml-32">*/}
+            <div>
               <CreateParamList
                 allLensParams={allLensParams}
+                editParamFunc={editParamFunc}
               />
             </div>
-            <AddLensSurface
+            {/*<AddLensSurface
               nLensLeft={nLensLeft}
               nLensRight={nLensRight}
               surfaceRadius={surfaceRadius}
@@ -196,7 +206,7 @@ export const App = () => {
               onchangeInputPointX={onchangeInputPointX}
               onchangeInputLensRadius={onchangeInputLensRadius}
               onClickAddParams={onClickAddParams}
-            />
+  />*/}
           </div>
           <br />
           <p className="flex justify-center">The unit of length is cm.</p>
