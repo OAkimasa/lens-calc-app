@@ -5,7 +5,6 @@ export const CreateParamList = memo((props) => {
     const { allLensParams,
             editParamFunc
             } = props;
-    console.log("CPL", allLensParams)
     return (
         <div className="mx-6">
             <ul>

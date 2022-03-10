@@ -6,7 +6,6 @@ export const PrimaryTable = memo((props) => {
     const { children,
             editParamFunc
             } = props;
-    //console.log("children=",children);
     return (
         <div className="flex flex-col max-w-fit">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">

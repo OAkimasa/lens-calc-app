@@ -82,14 +82,14 @@ export const App = () => {
     setLensRadius("");
   }
 
-  // パラメーター編集関数
+  // パラメーター編集
   const editParamFunc = (index0, index1) => {
-    console.log("edit start!!!", index0, index1)
+    const editIndex = Number(String(index0)+String(index1))
+    const target = document.getElementById(editIndex)
     const newAllLensParams = [...allLensParams]
-    // 新規入力で上書きしたい
-    //newAllLensParams[index0][index1] = 1
-    console.log("clone",newAllLensParams)
-    //setAllLensParams(newAllLensParams)
+    // 新規入力で上書き
+    newAllLensParams[index0][index1] = Number(target.value)
+    setAllLensParams(newAllLensParams)
   }
 
   // パラメーター追加ボタン
@@ -188,7 +188,7 @@ export const App = () => {
           {/*<div className="lg:grid lg:grid-cols-2">*/}
           <div className="lg:grid lg:grid-cols-1">
             {/*<div className="lg:ml-32">*/}
-            <div>
+            <div className="lg:flex lg:justify-center">
               <CreateParamList
                 allLensParams={allLensParams}
                 editParamFunc={editParamFunc}
