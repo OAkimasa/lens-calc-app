@@ -3,7 +3,8 @@ import { PrimaryTable } from "../components/molecules/PrimayTable";
 
 export const CreateParamList = memo((props) => {
     const { allLensParams,
-            editParamFunc
+            editParamFunc,
+            addParamPlus
             } = props;
     return (
         <div className="mx-6">
@@ -11,6 +12,7 @@ export const CreateParamList = memo((props) => {
                 <br />
                 <PrimaryTable
                     editParamFunc={editParamFunc}
+                    addParamPlus={addParamPlus}
                 >{allLensParams}</PrimaryTable>
             </ul>
         </div>

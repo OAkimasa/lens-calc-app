@@ -1,10 +1,12 @@
 import { memo } from "react";
 import { PrimaryThread } from "../atoms/thread/PrimaryThread";
 import { SecondaryThread } from "../atoms/thread/SecondaryThread";
+import { PlusSmIcon } from '@heroicons/react/outline'
 
 export const PrimaryTable = memo((props) => {
     const { children,
-            editParamFunc
+            editParamFunc,
+            addParamPlus
             } = props;
     return (
         <div className="flex flex-col max-w-fit">
@@ -37,6 +39,11 @@ export const PrimaryTable = memo((props) => {
                                 })}
                             </tbody>
                         </table>
+                    </div>
+                    <div className="flex justify-left">
+                        <button className="w-24 flex justify-center text-gray-600 hover:bg-gray-300" onClick={addParamPlus}>
+                            <PlusSmIcon class="h-8 w-8" stroke='currentcolor'/>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -87,8 +87,17 @@ export const App = () => {
     const editIndex = Number(String(index0)+String(index1))
     const target = document.getElementById(editIndex)
     const newAllLensParams = [...allLensParams]
-    // 新規入力で上書き
     newAllLensParams[index0][index1] = Number(target.value)
+    setAllLensParams(newAllLensParams)
+  }
+
+  // パラーメーター追加
+  const addParamPlus = () => {
+    console.log("新規追加！！")
+    const newAllLensParams = [...allLensParams]
+    console.log(allLensParams.length)
+    newAllLensParams[allLensParams.length]=[1, 1, 1000, 100, 100]
+    console.log(newAllLensParams)
     setAllLensParams(newAllLensParams)
   }
 
@@ -192,6 +201,7 @@ export const App = () => {
               <CreateParamList
                 allLensParams={allLensParams}
                 editParamFunc={editParamFunc}
+                addParamPlus={addParamPlus}
               />
             </div>
             {/*<AddLensSurface
