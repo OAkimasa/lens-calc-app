@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./styles.css";
-import { AddLensSurface } from "./calculation/AddLensSurface";
+//import { AddLensSurface } from "./calculation/AddLensSurface";
 import { CreateParamList } from "./calculation/CreateParamList";
 import { DefaultLayout } from "./components/templetes/DefaultLayout";
 import { DrawLensGraphic } from "./calculation/DrawLensGraphic";
 import { LensTemplates } from "./calculation/LensTemplates";
+import { PrimaryButton } from "./components/atoms/button/PrimaryButton";
 
 export const App = () => {
   const [calc, setCalc] = useState();
@@ -20,12 +21,14 @@ export const App = () => {
   const [pointX, setPointX] = useState("");
   const [lensRadius, setLensRadius] = useState("");
 
+  /**
   // パラメーターの入力処理
   const onchangeInputNLensLeft = (event) => setNLensLeft(event.target.value);
   const onchangeInputNLensRight = (event) => setNLensRight(event.target.value);
   const onchangeInputSurfaceRadius = (event) => setSurfaceRadius(event.target.value);
   const onchangeInputPointX = (event) => setPointX(event.target.value);
   const onchangeInputLensRadius = (event) => setLensRadius(event.target.value);
+  */
 
   // レンズテンプレート操作
   const setWaterBallParams = () => {
@@ -82,6 +85,35 @@ export const App = () => {
     setLensRadius("");
   }
 
+  // パラメーター編集
+  const editParamFunc = (index0, index1) => {
+    const editIndex = String(index0)+String(index1)
+    const target = document.getElementById(editIndex)
+    const newAllLensParams = [...allLensParams]
+    newAllLensParams[index0][index1] = Number(target.value)
+    setAllLensParams([])
+    setAllLensParams(newAllLensParams)
+  }
+
+  // パラーメーター追加
+  const addParamPlus = () => {
+    const newAllLensParams = [...allLensParams]
+    newAllLensParams[allLensParams.length]=[1, 1, 1000, 100, 100]
+    deleteAllExpression()
+    setAllLensParams(newAllLensParams)
+  }
+
+  // パラメーター削除
+  const deleteParamMinus = (index) => {
+    const newAllLensParams = [...allLensParams]
+    console.log("before",newAllLensParams)
+    newAllLensParams.splice(index-1, 1)
+    console.log("after",newAllLensParams)
+    deleteAllExpression()
+    setAllLensParams(newAllLensParams)
+  }
+
+  /*
   // パラメーター追加ボタン
   const onClickAddParams = () => {
     if (aLensParams === []) return;
@@ -147,15 +179,11 @@ export const App = () => {
     const newParams = [...allLensParams, newALensParams];
     setAllLensParams(newParams);
   };
+  */
 
-  // パラメーターの入力
   // APIキーはデモ用
-  // 入力されたパラメーターの表示
   return (
     <>
-      <head>
-        <script src="https://www.desmos.com/api/v1.6/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
-      </head>
       <DefaultLayout>
         <main className="mx-0 mb-auto mt-3">
           <div className="">
@@ -163,28 +191,45 @@ export const App = () => {
             <h1 className="text-gray-800 text-5xl mx-6">Refraction</h1>
             <h1 className="text-gray-800 text-5xl mx-6">Calculator</h1>
           </div>
-          <div className="lg:flex">
+          <div className="lg:flex lg:justify-center">
             <DrawLensGraphic
               allLensParams={allLensParams}
               allRayParams={allRayParams}
               calc={calc}
               setCalc={setCalc}
             />
-            <LensTemplates
-              setWaterBallParams={setWaterBallParams}
-              set135mmLensParams={set135mmLensParams}
-              setSemicircle1Params={setSemicircle1Params}
-              setSemicircle2Params={setSemicircle2Params}
-              deleteAllExpression={deleteAllExpression}
-            />
-          </div>
-          <div className="lg:grid lg:grid-cols-2">
-            <div className="lg:ml-32">
-              <CreateParamList
-                allLensParams={allLensParams}
+            <div className="lg:w-1/3 lg:mt-8">
+              <div className="border border-gray-200"/>
+              <LensTemplates
+                setWaterBallParams={setWaterBallParams}
+                set135mmLensParams={set135mmLensParams}
+                setSemicircle1Params={setSemicircle1Params}
+                setSemicircle2Params={setSemicircle2Params}
               />
+              <div className="border border-gray-200"/>
             </div>
-            <AddLensSurface
+          </div>
+          {/*<div className="lg:grid lg:grid-cols-2">*/}
+          <div className="lg:grid lg:grid-cols-1">
+            {/*<div className="lg:ml-32">*/}
+            <div className="lg:flex lg:justify-center">
+              <div>
+                <CreateParamList
+                  allLensParams={allLensParams}
+                  editParamFunc={editParamFunc}
+                  addParamPlus={addParamPlus}
+                  deleteParamMinus={deleteParamMinus}
+                />
+                <div className="flex justify-center">
+                  <PrimaryButton onClick={deleteAllExpression}>
+                      <p
+                          className="mb-0 text-sm lg:text-md lg:text-lg font-medium text-gray-100 dark:text-gray-300"
+                      >- Delete All -</p>
+                  </PrimaryButton>
+                </div>
+              </div>
+            </div>
+            {/*<AddLensSurface
               nLensLeft={nLensLeft}
               nLensRight={nLensRight}
               surfaceRadius={surfaceRadius}
@@ -196,7 +241,7 @@ export const App = () => {
               onchangeInputPointX={onchangeInputPointX}
               onchangeInputLensRadius={onchangeInputLensRadius}
               onClickAddParams={onClickAddParams}
-            />
+            />*/}
           </div>
           <br />
           <p className="flex justify-center">The unit of length is cm.</p>

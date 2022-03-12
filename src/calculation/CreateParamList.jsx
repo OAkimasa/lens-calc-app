@@ -2,12 +2,20 @@ import React, { memo } from "react";
 import { PrimaryTable } from "../components/molecules/PrimayTable";
 
 export const CreateParamList = memo((props) => {
-    const { allLensParams } = props;
+    const { allLensParams,
+            editParamFunc,
+            addParamPlus,
+            deleteParamMinus
+            } = props;
     return (
         <div className="mx-6">
             <ul>
                 <br />
-                <PrimaryTable>{allLensParams}</PrimaryTable>
+                <PrimaryTable
+                    editParamFunc={editParamFunc}
+                    addParamPlus={addParamPlus}
+                    deleteParamMinus={deleteParamMinus}
+                >{allLensParams}</PrimaryTable>
             </ul>
         </div>
     );
