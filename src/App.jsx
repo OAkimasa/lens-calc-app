@@ -87,10 +87,11 @@ export const App = () => {
 
   // パラメーター編集
   const editParamFunc = (index0, index1) => {
-    const editIndex = Number(String(index0)+String(index1))
+    const editIndex = String(index0)+String(index1)
     const target = document.getElementById(editIndex)
     const newAllLensParams = [...allLensParams]
     newAllLensParams[index0][index1] = Number(target.value)
+    setAllLensParams([])
     setAllLensParams(newAllLensParams)
   }
 
