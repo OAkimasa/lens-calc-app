@@ -110,9 +110,13 @@ export const DrawLensGraphic = ({ allLensParams, allRayParams, calc, setCalc }) 
 
     // 光線のパラメーターは、[sP0, sP1, T, dV0, dV1]
     const roopY = [0.65, -0.4, -0.15, 0.15, 0.4, -0.65]
+    // 6光線の光路長
+    const allOpticalPathLength = []
     const RayTraceTTT = (forIndex, roopValue) => {
         // インデックス指定のため
         const lensParamsLength = allLensParams.length
+        // 1光線の光路長
+        const opticalPathLength = [0]
         allLensParams.map((params, index) => {
             // [sP0, sP1, T, dV0, dV1]のかたまりを作る
             const paramBox = [];
@@ -257,16 +261,26 @@ export const DrawLensGraphic = ({ allLensParams, allRayParams, calc, setCalc }) 
                 paramBox[2] = ((-B + Math.sqrt(B ** 2 - A * C)) / A)
                 allRayParams = [...allRayParams, paramBox];
             }
-            //console.log(paramBox)
             // ---------------係数 T の計算 end--------------------------
+            // ---------------光路長の計算 start-------------------------
+            if (Math.sign(paramBox[1])===Math.sign(paramBox[1]+paramBox[2]*paramBox[4])) {
+                opticalPathLength[0] = opticalPathLength[0]+paramBox[2]*allLensParams[index][0]
+            } else {
+                // 焦点の場合は光軸との交点までを足す
+                const lastRayLength = (-paramBox[1]/paramBox[4])*allLensParams[index][0]
+                opticalPathLength[0] = opticalPathLength[0]+lastRayLength
+                allOpticalPathLength.push(opticalPathLength)
+            }
+            // ---------------光路長の計算 end---------------------------
         })
     }
 
     for (const [forIndex, roopValue] of roopY.entries()) {
         RayTraceTTT(forIndex, roopValue)
-        //console.log(allRayParams)
     }
 
+    // 確認
+    console.log("allOpticalPathLength =",allOpticalPathLength)
     //const allRayParams = RayTraceTTT(allLensParams);
     //console.log(allLensParams)
     //console.log(allRayParams)

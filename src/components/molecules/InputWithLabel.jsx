@@ -6,7 +6,9 @@ export const InputWithLabel = memo((props) => {
     const { onChange, placeholder = "", value, children } = props;
     return (
         <div className="my-2">
-            <PrimaryLabel>{children}</PrimaryLabel>
+            <div className="flex justify-center">
+                <PrimaryLabel>{children}</PrimaryLabel>
+            </div>
             <Input
                 onChange={event => onChange(event)}
                 placeholder={placeholder}
