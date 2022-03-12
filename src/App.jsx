@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
-//import { AddLensSurface } from "./calculation/AddLensSurface";
+import { AddLensSurface } from "./calculation/AddLensSurface";
 import { CreateParamList } from "./calculation/CreateParamList";
 import { DefaultLayout } from "./components/templetes/DefaultLayout";
 import { DrawLensGraphic } from "./calculation/DrawLensGraphic";
@@ -21,14 +21,12 @@ export const App = () => {
   const [pointX, setPointX] = useState("");
   const [lensRadius, setLensRadius] = useState("");
 
-  /**
   // パラメーターの入力処理
   const onchangeInputNLensLeft = (event) => setNLensLeft(event.target.value);
   const onchangeInputNLensRight = (event) => setNLensRight(event.target.value);
   const onchangeInputSurfaceRadius = (event) => setSurfaceRadius(event.target.value);
   const onchangeInputPointX = (event) => setPointX(event.target.value);
   const onchangeInputLensRadius = (event) => setLensRadius(event.target.value);
-  */
 
   // レンズテンプレート操作
   const setWaterBallParams = () => {
@@ -113,7 +111,6 @@ export const App = () => {
     setAllLensParams(newAllLensParams)
   }
 
-  /*
   // パラメーター追加ボタン
   const onClickAddParams = () => {
     if (aLensParams === []) return;
@@ -179,7 +176,6 @@ export const App = () => {
     const newParams = [...allLensParams, newALensParams];
     setAllLensParams(newParams);
   };
-  */
 
   // APIキーはデモ用
   return (
@@ -209,17 +205,17 @@ export const App = () => {
               <div className="border border-gray-200"/>
             </div>
           </div>
-          {/*<div className="lg:grid lg:grid-cols-2">*/}
-          <div className="lg:grid lg:grid-cols-1">
-            {/*<div className="lg:ml-32">*/}
+          <div className="lg:flex lg:justify-evenly">
             <div className="lg:flex lg:justify-center">
               <div>
-                <CreateParamList
-                  allLensParams={allLensParams}
-                  editParamFunc={editParamFunc}
-                  addParamPlus={addParamPlus}
-                  deleteParamMinus={deleteParamMinus}
-                />
+                <div className="">
+                  <CreateParamList
+                    allLensParams={allLensParams}
+                    editParamFunc={editParamFunc}
+                    addParamPlus={addParamPlus}
+                    deleteParamMinus={deleteParamMinus}
+                  />
+                </div>
                 <div className="flex justify-center">
                   <PrimaryButton onClick={deleteAllExpression}>
                       <p
@@ -229,19 +225,21 @@ export const App = () => {
                 </div>
               </div>
             </div>
-            {/*<AddLensSurface
-              nLensLeft={nLensLeft}
-              nLensRight={nLensRight}
-              surfaceRadius={surfaceRadius}
-              pointX={pointX}
-              lensRadius={lensRadius}
-              onchangeInputNLensLeft={onchangeInputNLensLeft}
-              onchangeInputNLensRight={onchangeInputNLensRight}
-              onchangeInputSurfaceRadius={onchangeInputSurfaceRadius}
-              onchangeInputPointX={onchangeInputPointX}
-              onchangeInputLensRadius={onchangeInputLensRadius}
-              onClickAddParams={onClickAddParams}
-            />*/}
+            <div className="lg:w-1/4">
+              <AddLensSurface
+                nLensLeft={nLensLeft}
+                nLensRight={nLensRight}
+                surfaceRadius={surfaceRadius}
+                pointX={pointX}
+                lensRadius={lensRadius}
+                onchangeInputNLensLeft={onchangeInputNLensLeft}
+                onchangeInputNLensRight={onchangeInputNLensRight}
+                onchangeInputSurfaceRadius={onchangeInputSurfaceRadius}
+                onchangeInputPointX={onchangeInputPointX}
+                onchangeInputLensRadius={onchangeInputLensRadius}
+                onClickAddParams={onClickAddParams}
+              />
+            </div>
           </div>
           <br />
           <p className="flex justify-center">The unit of length is cm.</p>

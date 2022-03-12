@@ -48,9 +48,11 @@ export const AddLensSurface = memo((props) => {
                     - Lens Radius -
                 </InputWithLabel>
 
-                <PrimaryButton onClick={onClickAddParams}>
-                    Add Surface
-                </PrimaryButton>
+                <div className="flex justify-center">
+                    <PrimaryButton onClick={onClickAddParams}>
+                        Add Surface
+                    </PrimaryButton>
+                </div>
             </div>
         </div>
     );
