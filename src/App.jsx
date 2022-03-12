@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
-import { AddLensSurface } from "./calculation/AddLensSurface";
+//import { AddLensSurface } from "./calculation/AddLensSurface";
 import { CreateParamList } from "./calculation/CreateParamList";
 import { DefaultLayout } from "./components/templetes/DefaultLayout";
 import { DrawLensGraphic } from "./calculation/DrawLensGraphic";
