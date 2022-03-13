@@ -29,7 +29,7 @@ export const AddLensSurface = memo((props) => {
                     placeholder="球面の曲率半径を入力"
                     value={surfaceRadius}
                 >
-                    - Surface Radius -
+                        - Radius of Curvature -
                 </InputWithLabel>
 
                 <InputWithLabel

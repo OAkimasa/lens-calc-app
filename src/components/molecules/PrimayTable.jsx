@@ -21,7 +21,7 @@ export const PrimaryTable = memo((props) => {
                                     <SecondaryThread>- Surface -</SecondaryThread>
                                     <SecondaryThread>- Left n -</SecondaryThread>
                                     <SecondaryThread>- Right n -</SecondaryThread>
-                                    <SecondaryThread>- Surface Radius -</SecondaryThread>
+                                    <SecondaryThread>- Radius of Curvature -</SecondaryThread>
                                     <SecondaryThread>- Point x -</SecondaryThread>
                                     <SecondaryThread>- Lens Radius -</SecondaryThread>
                                 </tr>
